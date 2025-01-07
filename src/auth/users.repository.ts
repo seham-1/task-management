@@ -6,10 +6,16 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+// import { JwtService } from '@nestjs/jwt';
+// import { ConfigService } from '@nestjs/config';
 
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {
-  constructor(private dataSource: DataSource) {
+  constructor(
+    private dataSource: DataSource,
+    // private jwtService: JwtService,
+    // private configServices: ConfigService,
+  ) {
     super(User, dataSource.createEntityManager());
   }
 

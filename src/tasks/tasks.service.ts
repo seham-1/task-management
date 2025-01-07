@@ -31,11 +31,12 @@ export class TasksService {
   //   return found;
   // }
 
-  async getTaskById(id: string, user: User): Promise<Task> {
+  async getTaskById(id: number, user: User): Promise<Task> {
     const found = await this.tasksRepository
       .createQueryBuilder('task')
       .where('task.id = :id', { id })
       .andWhere('task.userId = :userId', { userId: user.id })
+      // .andWhere('task.userId = :userId', { user.id })
       .getOne();
 
     // console.log('Found task:', found);
@@ -52,12 +53,13 @@ export class TasksService {
   }
 
   async updateTaskStatus(
-    id: string,
+    id: number,
     status: TaskStatus,
     user: User,
   ): Promise<Task> {
     const task = await this.getTaskById(id, user);
-    console.log(task);
+    // const task = await this.tasksRepository.findOne({ where: { id, user } });
+    // console.log(task);
 
     task.status = status;
     await this.tasksRepository.save(task);
@@ -65,8 +67,9 @@ export class TasksService {
     return task;
   }
 
-  async deleteTask(id: string, user: User): Promise<void> {
+  async deleteTask(id: number, user: User): Promise<void> {
     // return this.tasks.filter((task) => task.id);
+    console.log(`Deleting task with ID: ${id} for user: ${user.id}`);
     const result = await this.tasksRepository.delete({ id, user });
 
     if (result.affected === 0) {

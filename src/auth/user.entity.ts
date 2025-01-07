@@ -36,6 +36,9 @@ export class User {
   })
   updeatedAt: Date;
 
+  @Column({ nullable: true })
+  hashedRefreshToken: string;
+
   @OneToMany(() => Task, (task) => task.user, { eager: true })
   tasks: Task[];
 }

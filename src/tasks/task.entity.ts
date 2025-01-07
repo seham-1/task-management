@@ -14,7 +14,7 @@ import { Exclude } from 'class-transformer';
 @Entity()
 export class Task {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   title: string;

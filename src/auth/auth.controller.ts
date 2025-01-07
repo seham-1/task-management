@@ -17,4 +17,23 @@ export class AuthController {
   ): Promise<{ accessToken: string }> {
     return this.authService.signin(authCredentialsDto);
   }
+
+  // @Post('/signup')
+  // signUp(
+  //   @Body() authCredentialsDto: AuthCredentialsDto,
+  // ): Promise<{ accessToken: string; refreshToken: string }> {
+  //   return this.authService.signup(authCredentialsDto);
+  // }
+
+  // @Post('/signin')
+  // signIn(
+  //   @Body() authCredentialsDto: AuthCredentialsDto,
+  // ): Promise<{ accessToken: string; refreshToken: string }> {
+  //   return this.authService.signin(authCredentialsDto);
+  // }
+
+  // @Post('/refresh')
+  // refreshToken(@Request() req) {
+  //   return this.authService.refreshToken(req.user);
+  // }
 }

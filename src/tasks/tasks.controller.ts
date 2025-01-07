@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
   Logger,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
@@ -36,7 +37,7 @@ export class TasksController {
   }
 
   @Get('/:id')
-  getTaskById(@Param('id') id: string, @GetUser() user: User): Promise<Task> {
+  getTaskById(@Param('id') id: number, @GetUser() user: User): Promise<Task> {
     console.log('Task ID:', id);
     return this.taskService.getTaskById(id, user);
   }
@@ -51,7 +52,7 @@ export class TasksController {
 
   @Patch('/:id/status')
   updateTaskStatus(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateStatusDto: UpdateTaskStatusDto,
     @GetUser() user: User,
   ): Promise<Task> {
@@ -60,7 +61,10 @@ export class TasksController {
   }
 
   @Delete('/:id')
-  deleteTask(@Param('id') id: string, @GetUser() user: User): Promise<void> {
+  deleteTask(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
     return this.taskService.deleteTask(id, user);
   }
 
